@@ -7,7 +7,7 @@ public class Array {
         int index = 0;
         int i;
         for (i = 0; i < text.length; i++) {
-            if (text[i] == ' ')  {
+            if (text[i] == ' ') {
             }
             if (text[i] != ' ') {
                 index++;
@@ -22,7 +22,7 @@ public class Array {
             }
             if (text[j] != ' ') {
                 index++;
-                resul[index] = text[j];
+                resul[index] =  text[j];
             }
             System.out.print(resul[index]);
         }
