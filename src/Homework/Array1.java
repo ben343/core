@@ -1,41 +1,31 @@
 package Homework;
 
-public class Array {
+public class Array1 {
     public static void main(String[] args) {
         char[] text = {' ', ' ', 'b', 'a', 'r', ' ', 'e', 'v', ' ', ' '};
-        char[] resul = new char[text.length];
-        int index =0;
+        char[] result = new char[text.length];
+        int index = 0;
         int i;
         for (i = 0; i < text.length; i++) {
             if (text[i] == ' ') {
+                continue;
             }
             if (text[i] != ' ') {
                 index++;
-                resul[index] = text[i];
+                result[index] = text[i];
                 break;
             }
         }
         for (int j = i; j < text.length; j++) {
             if (text[j] == ' ') {
                 index++;
-                resul[index] = text[j];
+                result[index] = text[j];
             }
             if (text[j] != ' ') {
                 index++;
-                resul[index] = text[j];
+                result[index] = text[j];
             }
-            System.out.print(resul[index]);
+            System.out.print(result[index]);
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
