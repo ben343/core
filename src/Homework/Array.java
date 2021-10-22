@@ -4,7 +4,7 @@ public class Array {
     public static void main(String[] args) {
         char[] text = {' ', ' ', 'b', 'a', 'r', ' ', 'e', 'v', ' ', ' '};
         char[] resul = new char[text.length];
-        int index = 0;
+        int index =0;
         int i;
         for (i = 0; i < text.length; i++) {
             if (text[i] == ' ') {
@@ -22,7 +22,7 @@ public class Array {
             }
             if (text[j] != ' ') {
                 index++;
-                resul[index] =  text[j];
+                resul[index] = text[j];
             }
             System.out.print(resul[index]);
         }
