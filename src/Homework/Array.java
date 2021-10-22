@@ -8,8 +8,8 @@ public class Array {
         int i;
         for (i = 0; i < text.length; i++) {
             if (text[i] == ' ') {
-                continue;
-            } else if (text[i] != ' ') {
+            }
+            if (text[i] != ' ') {
                 index++;
                 resul[index] = text[i];
                 break;
@@ -17,10 +17,10 @@ public class Array {
         }
         for (int j = i; j < text.length; j++) {
             if (text[j] == ' ') {
-
                 index++;
                 resul[index] = text[j];
-            } else if (text[j] != ' ') {
+            }
+            if (text[j] != ' ') {
                 index++;
                 resul[index] = text[j];
             }
@@ -28,8 +28,15 @@ public class Array {
         }
 
     }
-
 }
+
+
+
+
+
+
+
+
 
 
 
