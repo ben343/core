@@ -26,7 +26,6 @@ public class Array {
             }
             System.out.print(resul[index]);
         }
-
     }
 }
 
