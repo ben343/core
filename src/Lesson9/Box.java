@@ -10,7 +10,7 @@ public class Box {
         System.out.println(width * height * depth);
     }
 
-    double volume() {
+    double volume1() {
         return width * height * depth;
     }
 
@@ -18,6 +18,28 @@ public class Box {
         width = w;
         height = h;
         depth = d;
+    }
+
+    Box() {
+        System.out.println("Koнcтpyиpoвaниe объекта Вох");
+        width = 10;
+        height = 10;
+        depth = 10;
+
+    }
+
+    double volume() {
+        return width * height * depth;
+    }
+
+    Box(double w, double h, double d) {
+        width = w;
+        height = h;
+        depth = d;
+    }
+
+    double volume2() {
+        return width * height * depth;
     }
 }
 
