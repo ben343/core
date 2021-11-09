@@ -21,7 +21,7 @@ public class BraceChecker {
                 case '{':
                     mystack.push(text.charAt(i));
                     break;
-             }
+              }
 
             if (c == ')' || c == ']' || c == '}') {
                 char d = mystack.pop();

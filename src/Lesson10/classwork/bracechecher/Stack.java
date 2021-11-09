@@ -13,7 +13,7 @@ public class Stack {
             System.out.println("stack-ը վերջացավ");
         } else {
             array[++size] = value;
-         }
+          }
     }
     public char pop() {
         if (size < 0) {
