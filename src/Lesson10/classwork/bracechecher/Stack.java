@@ -4,7 +4,6 @@ public class Stack {
     private char[] array = new char[10];
 
     private int size;
-
     public Stack() {
         size = -1;
     }
@@ -16,7 +15,6 @@ public class Stack {
             array[++size] = value;
         }
     }
-
     public char pop() {
         if (size < 0) {
             System.out.println("stack-ը դատարկ է");
@@ -25,5 +23,4 @@ public class Stack {
             return array[size--];
         }
     }
-
 }
