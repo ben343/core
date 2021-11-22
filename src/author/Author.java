@@ -15,10 +15,7 @@ public class Author {
         this.gender = gender;
     }
 
-
-
-    Author() {
-
+    public Author() {
     }
 
     public String getName() {
