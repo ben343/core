@@ -23,23 +23,25 @@ public class BookStorage {
         }
     }
 
-    public void searchByTitle(String keyword) {
+    public Book searchByTitle(String keyword) {
         for (int i = 0; i < size; i++) {
             if (books[i].getTitle().contains(keyword)) {
                 System.out.println(books[i]);
             }
         }
+        return null;
     }
 
     public void searchBookByAuthor(String email) {
         for (int i = 0; i < size; i++) {
-            if (books[i].getAuthor().getEmail().contains(email)) {
+            if (books[i].getAuthor().getEmail().equals(email)) {
                 System.out.println(books[i]);
             }
+            ;
         }
     }
 
-    public void searchCountBooksbyAuthor(String email) {
+    public void searchCountBooksByAuthor(String email) {
         int count = 0;
         for (int i = 0; i < size; i++) {
             if (books[i].getAuthor().getEmail().contains(email)) {
@@ -49,26 +51,56 @@ public class BookStorage {
         System.out.println(count);
     }
 
+    public Book getByTitle(String title) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(title))
+                return books[i];
+        }
+        return null;
+    }
 
 
+    public void DeleteByTitle(String title) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(title)) {
+                for (int j = i + 1; j < size; j++) {
+                    books[j - 1] = books[j];
+
+                }
+                size--;
             }
 
+        }
+    }
 
 
-        // public void searchAuthor(String keyword) {
-        //   for (int i = 0; i < size; i++) {
-        //     if (authors[i].getName().contains(keyword) ||
-        //           authors[i].getSurname().contains(keyword)) {
-        //     System.out.println(authors[i]);
-        //}
-        //}
-        //}
+    public void deletebyauthor(String email) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(email)) {
+                for (int j = 0; j < size; j++) {
+                    books[i] = books[i--];
+                }
+            }
+            size--;
+        }
+    }
+}
 
-        // public void searchAuthorByAge(int minAge, int maxAge) {
-        //   for (int i = 0; i <size ; i++) {
-        //     if (authors[i].getAge()>=minAge && authors[i].getAge()<=maxAge){
-        //       System.out.println(authors[i]);
-        // }
 
-        //}
+// public void searchAuthor(String keyword) {
+//   for (int i = 0; i < size; i++) {
+//     if (authors[i].getName().contains(keyword) ||
+//           authors[i].getSurname().contains(keyword)) {
+//     System.out.println(authors[i]);
+//}
+//}
+//}
+
+// public void searchAuthorByAge(int minAge, int maxAge) {
+//   for (int i = 0; i <size ; i++) {
+//     if (authors[i].getAge()>=minAge && authors[i].getAge()<=maxAge){
+//       System.out.println(authors[i]);
+// }
+
+//}
 

@@ -1,5 +1,7 @@
 package author;
 
+import java.nio.charset.StandardCharsets;
+
 public class AuthorStorage {
     private Author[] authors = new Author[16];
     private int size;
@@ -52,11 +54,33 @@ public class AuthorStorage {
     }
 
 
+    public void DeleteByAuthor(String email) {
+        for (int i = 0; i < size; i++)
+            if (authors[i].getEmail().equals(email)) {
 
+                for (int j = i + 1; j < size; j++) {
+                    authors[j - 1] = authors[j];
+
+
+                }
+                size--;
+
+
+            }
     }
 
+    public void deleteauthor(String email) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getEmail().equals(email)) {
+                for (int j = i + 1; j < size; j++) {
+                    authors[j - 1] = authors[j];
 
+                }
+                size--;
 
+            }
+        }
+    }
 
-
+}
 
