@@ -1,4 +1,9 @@
-package Lesson11.education;
+package Lesson11.education.model;
+
+import Lesson11.education.util.DateUtil;
+
+import java.util.Arrays;
+import java.util.Date;
 
 public class Student {
     private String name;
@@ -6,19 +11,19 @@ public class Student {
     private int age;
     private String email;
     private int phone;
-    private String lesson;
+    private Date dateOfBirth;
+    private Lesson[] lessons;
 
-    public Student(String name, String surname, int age, String email, int phone, String lesson) {
+    public Student(String name, String surname, int age, String email, int phone, Date dateOfBirth, Lesson[] lessons) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
         this.phone = phone;
-        this.lesson = lesson;
+        this.dateOfBirth = dateOfBirth;
+        this.lessons = lessons;
     }
 
-    public Student() {
-    }
 
     public String getName() {
         return name;
@@ -60,13 +65,23 @@ public class Student {
         this.phone = phone;
     }
 
-    public String getLesson() {
-        return lesson;
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setLesson(String lesson) {
-        this.lesson = lesson;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
+
+    public Lesson[] getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Lesson[] lessons) {
+        this.lessons = lessons;
+    }
+
 
     @Override
     public String toString() {
@@ -76,7 +91,14 @@ public class Student {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phone=" + phone +
-                ", lesson='" + lesson + '\'' +
+                ", dateOfBirth=" + DateUtil.dateToString(dateOfBirth) +
+                ", lessons=" + Arrays.toString(lessons) +
                 '}';
     }
 }
+
+
+
+
+
+

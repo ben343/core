@@ -1,9 +1,17 @@
-package Lesson11.education;
+package Lesson11.education.storage;
+
+import Lesson11.education.model.Lesson;
+import Lesson11.education.util.ArrayUtil;
+import Lesson11.education.model.Student;
+
+import java.util.Arrays;
 
 public class StudentStorage {
 
+
     private Student[] students = new Student[16];
     private int size;
+
 
     public void add(Student student) {
         if (students.length == size) {
@@ -48,21 +56,17 @@ public class StudentStorage {
 
     public void printStudentByLesson(String name) {
         for (int i = 0; i < size; i++) {
-            if (students[i].getLesson().equals(name)) {
+            if (Arrays.toString(students[i].getLessons()).contains(name)) {
                 System.out.println(students[i]);
+
             }
+
         }
+
     }
 
 
-//    public void printStudentByLesson(String student) {
-//        for (int i = 0; i < size; i++) {
-//            if (students[i].getName().equals(student)) {
-//                System.out.println(students[i]);
-//            }
-//        }
-//
-//    }
 }
+
 
 

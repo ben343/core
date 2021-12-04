@@ -1,4 +1,4 @@
-package Lesson11.education;
+package Lesson11.education.model;
 
 
 public class Lesson {

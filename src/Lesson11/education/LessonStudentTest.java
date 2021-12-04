@@ -1,39 +1,26 @@
 package Lesson11.education;
 
 
+import Lesson11.education.model.Lesson;
+import Lesson11.education.model.Student;
+import Lesson11.education.storage.LessonStorage;
+import Lesson11.education.storage.StudentStorage;
+import Lesson11.education.util.DateUtil;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
-public class LessonStudentTest {
+public class LessonStudentTest implements LessonTestCommands {
     static Scanner scanner = new Scanner(System.in);
     static LessonStorage lessonStorage = new LessonStorage();
     static StudentStorage studentStorage = new StudentStorage();
 
 
-    private static final String EXIT = "0";
-    private static final String ADD_LESSON = "1";
-    private static final String ADD_STUDENT = "2";
-    private static final String PRINT_STUDENTS = "3";
-    private static final String PRINT_STUDENTS_BY_LESSON = "4";
-    private static final String PRINT_LESSONS = "5";
-    private static final String DELETE_LESSON_BY_NAME = "6";
-    private static final String DELETE_STUDENT_BY_EMAIL = "7";
-
-
-    private static void printCommands() {
-        System.out.println("\u001B[34m" + "please input " + EXIT + " to EXIT");
-        System.out.println("please input " + ADD_LESSON + " for add lesson");
-        System.out.println("please input " + ADD_STUDENT + " for add student");
-        System.out.println("please input " + PRINT_STUDENTS + " for print student");
-        System.out.println("please input " + PRINT_STUDENTS_BY_LESSON + " for print students by lesson");
-        System.out.println("please input " + PRINT_LESSONS + " for print lesson");
-        System.out.println("please input " + DELETE_LESSON_BY_NAME + " for delete lesson by name");
-        System.out.println("please input " + DELETE_STUDENT_BY_EMAIL + " for delete student by email" + "\u001B[34m");
-    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         boolean isRun = true;
         while (isRun) {
-            printCommands();
+            LessonTestCommands.printCommands();
             String command = scanner.nextLine();
             switch (command) {
                 case EXIT:
@@ -101,24 +88,40 @@ public class LessonStudentTest {
         }
     }
 
-    private static void addStudent() {
-        System.out.println("\u001B[32m" + "please input student's name,surname,age,email,phone,lesson");
-        String studentDataStr = scanner.nextLine();
-        String[] studentData = studentDataStr.split(",");
-        if (studentData.length == 6) {
-            Student student = new Student(studentData[0], studentData[1], Integer.parseInt(studentData[2]), studentData[3], Integer.parseInt(studentData[4]),
-                    studentData[5]);
-            if (studentStorage.getByEmail(student.getEmail()) != null) {
-                System.out.println("Invalid email");
-            } else {
-                studentStorage.add(student);
-                System.out.println("Thank you student is added");
-            }
+    private static void addStudent() throws ParseException {
+        System.out.println("\u001B[35m" + "please input  students name");
+        String name = scanner.nextLine();
+        System.out.println("please input students surname");
+        String surname = scanner.nextLine();
+        System.out.println("please input students age");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.println("please input students email");
+        String email = scanner.nextLine();
+        System.out.println("please input students phone");
+        int phone = Integer.parseInt(scanner.nextLine());
+        System.out.println("please input dateOfBirth");
+        String dateOfBirth = scanner.nextLine();
+        Date date = DateUtil.stringToDate(dateOfBirth);
+        System.out.println("please input lessons name" + "\u001B[35m");
+        String lessonName = scanner.nextLine();
+        String[] lessonNames = lessonName.split(",");
 
-        } else {
-            System.out.println("invalid data");
+        int size = 0;
+        for (int i = 0; i < lessonNames.length; i++) {
+            if (lessonStorage.getByName(lessonNames[i]) != null)
+                size++;
         }
+        Lesson[] lesson = new Lesson[size];
+        for (int i = 0; i < lessonNames.length; i++) {
+            if (lessonStorage.getByName(lessonNames[i]) != null) {
+                lesson[i] = lessonStorage.getByName(lessonNames[i]);
+            }
+        }
+        Student student = new Student(name, surname, age, email, phone, date, lesson);
+        studentStorage.add(student);
+        System.out.println("Thank you, Student was added");
     }
+
 
     private static void addLesson() {
         System.out.println("\u001B[35m" + "please input lesson name,duration,lecturerName,price,");

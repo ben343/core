@@ -1,4 +1,7 @@
-package Lesson11.education;
+package Lesson11.education.storage;
+
+import Lesson11.education.util.ArrayUtil;
+import Lesson11.education.model.Lesson;
 
 public class LessonStorage {
     private Lesson[] lessons = new Lesson[16];
