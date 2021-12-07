@@ -3,27 +3,51 @@ package Lesson11.education;
 
 import Lesson11.education.model.Lesson;
 import Lesson11.education.model.Student;
+import Lesson11.education.model.User;
 import Lesson11.education.storage.LessonStorage;
 import Lesson11.education.storage.StudentStorage;
+import Lesson11.education.storage.UserStorage;
 import Lesson11.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class LessonStudentTest implements LessonTestCommands {
+public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
     static Scanner scanner = new Scanner(System.in);
     static LessonStorage lessonStorage = new LessonStorage();
     static StudentStorage studentStorage = new StudentStorage();
-
+    static UserStorage userStorage = new UserStorage();
 
     public static void main(String[] args) throws ParseException {
         boolean isRun = true;
         while (isRun) {
-            LessonTestCommands.printCommands();
+            Commands.printCommands();
+            String command1 = scanner.nextLine();
+            switch (command1) {
+                case Commands.EXIT:
+                    isRun = false;
+                    break;
+                case LOGIN:
+                    login();
+                    break;
+                case REGISTER:
+                    register();
+                    break;
+                default:
+                    System.out.println("Invalid Command");
+            }
+        }
+    }
+
+
+    public static void Admin() throws ParseException {
+        boolean isRun = true;
+        while (isRun) {
+            LessonStudentCommandsAdmin.printCommandsAdmin();
             String command = scanner.nextLine();
             switch (command) {
-                case EXIT:
+                case LessonStudentCommandsAdmin.EXIT:
                     isRun = false;
                     break;
                 case ADD_LESSON:
@@ -53,6 +77,80 @@ public class LessonStudentTest implements LessonTestCommands {
         }
     }
 
+
+    public static void ofUser() throws ParseException {
+        boolean isRun = true;
+        while (isRun) {
+            LessonStudentCommandsAdmin.printCommandsUser();
+            String command = scanner.nextLine();
+            switch (command) {
+                case LessonStudentCommandsAdmin.EXIT:
+                    isRun = false;
+                    break;
+                case ADD_LESSON:
+                    addLesson();
+                    break;
+                case ADD_STUDENT:
+                    addStudent();
+                    break;
+                case PRINT_STUDENTS:
+                    studentStorage.print();
+                    break;
+                case PRINT_LESSONS:
+                    lessonStorage.print();
+                    break;
+                case PRINT_STUDENTS_BY_LESSON:
+                    printStudentByLesson();
+                    break;
+                default:
+                    System.out.println("invalid command");
+            }
+        }
+    }
+
+
+    private static void register() throws ParseException {
+        System.out.println("\u001B[35m" + "please input  student's name");
+        String name = scanner.nextLine();
+        System.out.println("please input student's surname");
+        String surname = scanner.nextLine();
+        System.out.println("please input student's email");
+        String email = scanner.nextLine();
+        System.out.println("please input student's password");
+        String password = scanner.nextLine();
+        System.out.println("please input student's type");
+        String type = scanner.nextLine();
+        User user = new User(name, surname, email, password, type);
+        userStorage.add(user);
+        System.out.println("Thank you, user was added");
+        if (type.contains("user")) {
+            LessonStudentTest.ofUser();
+        } else {
+            LessonStudentTest.Admin();
+        }
+
+    }
+
+    private static void login() throws ParseException {
+        System.out.println("\u001B[35m" + "Please input email");
+        String email = scanner.nextLine();
+        userStorage.getByEmail(email);
+        System.out.println("\u001B[35m" + "Please input password");
+        String password = scanner.nextLine();
+        userStorage.getByPassword(password);
+        if (userStorage.getByEmail(email) != null && userStorage.getByPassword(password) != null) {
+            User user = userStorage.getByEmail(email);
+            if (user != null) {
+                if (user.getType().equals("user")) {
+                    LessonStudentTest.ofUser();
+                } else if (user.getType().equals("admin")) {
+                    LessonStudentTest.Admin();
+                }
+            }
+        } else System.out.println("\u001B[37m" + " The user from this email and password dont exist");
+    }
+
+
     private static void deleteStudentByEmail() {
         System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
@@ -61,7 +159,9 @@ public class LessonStudentTest implements LessonTestCommands {
             studentStorage.deleteStudentByEmail(student);
         } else {
             System.err.println("Student does not exist");
+
         }
+
 
     }
 
@@ -73,7 +173,9 @@ public class LessonStudentTest implements LessonTestCommands {
             lessonStorage.deleteLessonByName(name);
         } else {
             System.err.println("Lesson does not exist");
+
         }
+        LessonStudentCommandsAdmin.printCommandsAdmin();
     }
 
     private static void printStudentByLesson() {
@@ -85,6 +187,7 @@ public class LessonStudentTest implements LessonTestCommands {
 
         } else {
             System.out.println("Student does not exist");
+
         }
     }
 
@@ -120,8 +223,8 @@ public class LessonStudentTest implements LessonTestCommands {
         Student student = new Student(name, surname, age, email, phone, date, lesson);
         studentStorage.add(student);
         System.out.println("Thank you, Student was added");
-    }
 
+    }
 
     private static void addLesson() {
         System.out.println("\u001B[35m" + "please input lesson name,duration,lecturerName,price,");
@@ -138,6 +241,7 @@ public class LessonStudentTest implements LessonTestCommands {
 
         } else {
             System.out.println("invalid data");
+
         }
     }
 }
