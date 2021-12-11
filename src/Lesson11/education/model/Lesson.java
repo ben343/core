@@ -15,7 +15,6 @@ public class Lesson {
     }
 
     public Lesson() {
-
     }
 
     public String getName() {

@@ -251,7 +251,6 @@ public class LessonStudentTest implements LessonStudentCommands {
         System.out.println("Thank you, Student was added");
 
     }
-
     private static void addLesson() {
         System.out.println("\u001B[35m" + "please input lesson name,duration,lecturerName,price,");
         String lessonDataStr = scanner.nextLine();

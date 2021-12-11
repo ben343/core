@@ -79,6 +79,7 @@ private String type;
         return Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(type, user.type);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, email, password, type);

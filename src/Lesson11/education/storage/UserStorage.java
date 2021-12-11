@@ -17,6 +17,7 @@ public class UserStorage {
 
     private void extend() {
         User[] tmp = new User [users.length + 10];
+
         for (int i = 0; i < users.length; i++) {
             tmp[i] = users[i];
         }

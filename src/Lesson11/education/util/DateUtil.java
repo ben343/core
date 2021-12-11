@@ -12,7 +12,6 @@ public class DateUtil {
     public static String dateToString(Date date) {
         return sdf.format(date);
     }
-
     public static Date stringToDate(String dateStr) throws ParseException {
         return sdf.parse(dateStr);
     }

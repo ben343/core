@@ -18,7 +18,6 @@ public class StudentStorage {
         }
         students[size++] = student;
     }
-
     private void extend() {
         Student[] tmp = new Student[students.length + 10];
 

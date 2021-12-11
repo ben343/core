@@ -16,7 +16,6 @@ public class LessonStorage {
 
     private void extend() {
         Lesson[] tmp = new Lesson[lessons.length + 10];
-
         for (int i = 0; i < lessons.length; i++) {
             tmp[i] = lessons[i];
         }

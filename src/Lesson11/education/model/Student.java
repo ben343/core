@@ -24,7 +24,6 @@ public class Student {
         this.lessons = lessons;
     }
 
-
     public String getName() {
         return name;
     }
