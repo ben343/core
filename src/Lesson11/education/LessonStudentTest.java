@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
+public class LessonStudentTest implements LessonStudentCommands {
     static Scanner scanner = new Scanner(System.in);
     static LessonStorage lessonStorage = new LessonStorage();
     static StudentStorage studentStorage = new StudentStorage();
@@ -22,10 +22,10 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
     public static void main(String[] args) throws ParseException {
         boolean isRun = true;
         while (isRun) {
-            Commands.printCommands();
+            LessonStudentCommands.printCommands();
             String command1 = scanner.nextLine();
             switch (command1) {
-                case Commands.EXIT:
+                case EXIT:
                     isRun = false;
                     break;
                 case LOGIN:
@@ -41,14 +41,14 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
     }
 
 
-    public static void Admin() throws ParseException {
+    public static void adminLogin() {
         boolean isRun = true;
         while (isRun) {
-            LessonStudentCommandsAdmin.printCommandsAdmin();
+            LessonStudentCommands.printCommandsAdmin();
             String command = scanner.nextLine();
             switch (command) {
-                case LessonStudentCommandsAdmin.EXIT:
-                    isRun = false;
+                case LessonStudentCommands.EXIT:
+                    System.exit(0);
                     break;
                 case ADD_LESSON:
                     addLesson();
@@ -71,6 +71,9 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
                 case DELETE_STUDENT_BY_EMAIL:
                     deleteStudentByEmail();
                     break;
+                case LOGOUT:
+                    isRun = false;
+                    break;
                 default:
                     System.out.println("invalid command");
             }
@@ -78,14 +81,14 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
     }
 
 
-    public static void ofUser() throws ParseException {
+    public static void userLogin() {
         boolean isRun = true;
         while (isRun) {
-            LessonStudentCommandsAdmin.printCommandsUser();
+            LessonStudentCommands.printCommandsUser();
             String command = scanner.nextLine();
             switch (command) {
-                case LessonStudentCommandsAdmin.EXIT:
-                    isRun = false;
+                case EXIT:
+                    System.exit(0);
                     break;
                 case ADD_LESSON:
                     addLesson();
@@ -102,6 +105,9 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
                 case PRINT_STUDENTS_BY_LESSON:
                     printStudentByLesson();
                     break;
+                case LOGOUT:
+                    isRun = false;
+                    break;
                 default:
                     System.out.println("invalid command");
             }
@@ -109,47 +115,60 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
     }
 
 
-    private static void register() throws ParseException {
-        System.out.println("\u001B[35m" + "please input  student's name");
-        String name = scanner.nextLine();
-        System.out.println("please input student's surname");
-        String surname = scanner.nextLine();
-        System.out.println("please input student's email");
+    private static void register() {
+        System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
-        System.out.println("please input student's password");
-        String password = scanner.nextLine();
-        System.out.println("please input student's type");
-        String type = scanner.nextLine();
-        User user = new User(name, surname, email, password, type);
-        userStorage.add(user);
-        System.out.println("Thank you, user was added");
-        if (type.contains("user")) {
-            LessonStudentTest.ofUser();
+        User byEmail = userStorage.getByEmail(email);
+        if (byEmail == null) {
+            System.out.println("please input  student's name");
+            String name = scanner.nextLine();
+            System.out.println("please input student's surname");
+            String surname = scanner.nextLine();
+            System.out.println("please input student's password");
+            String password = scanner.nextLine();
+            System.out.println("please input student's type (ADMIN,USER)");
+            String type = scanner.nextLine();
+            if (type.equalsIgnoreCase("admin")
+                    || type.equalsIgnoreCase("user")) {
+                User user = new User();
+                user.setEmail(email);
+                user.setName(name);
+                user.setSurname(surname);
+                user.setPassword(password);
+                user.setType(type.toUpperCase());
+                userStorage.add(user);
+                System.out.println("User was registered!");
+
+            } else {
+                System.out.println("Invalid type");
+            }
         } else {
-            LessonStudentTest.Admin();
+            System.err.println("user with " + email + " already exists");
         }
 
     }
 
-    private static void login() throws ParseException {
-        System.out.println("\u001B[35m" + "Please input email");
+    private static void login() {
+        System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
-        userStorage.getByEmail(email);
-        System.out.println("\u001B[35m" + "Please input password");
-        String password = scanner.nextLine();
-        userStorage.getByPassword(password);
-        if (userStorage.getByEmail(email) != null && userStorage.getByPassword(password) != null) {
-            User user = userStorage.getByEmail(email);
-            if (user != null) {
-                if (user.getType().equals("user")) {
-                    LessonStudentTest.ofUser();
-                } else if (user.getType().equals("admin")) {
-                    LessonStudentTest.Admin();
-                }
-            }
-        } else System.out.println("\u001B[37m" + " The user from this email and password dont exist");
-    }
+        User byEmail = userStorage.getByEmail(email);
+        if (byEmail != null) {
+            System.out.println("please input student's password");
+            String password = scanner.nextLine();
 
+            if (byEmail.getPassword().equals(password)) {
+                if (byEmail.getType().equalsIgnoreCase("ADMIN")) {
+                    adminLogin();
+                } else if (byEmail.getType().equalsIgnoreCase("USER")) {
+                    userLogin();
+                }
+
+            } else {
+                System.out.println("password is worng!");
+
+            }
+        }
+    }
 
     private static void deleteStudentByEmail() {
         System.out.println("\u001B[35m" + "please input student's email");
@@ -175,7 +194,7 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
             System.err.println("Lesson does not exist");
 
         }
-        LessonStudentCommandsAdmin.printCommandsAdmin();
+
     }
 
     private static void printStudentByLesson() {
@@ -191,7 +210,7 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
         }
     }
 
-    private static void addStudent() throws ParseException {
+    private static void addStudent() {
         System.out.println("\u001B[35m" + "please input  students name");
         String name = scanner.nextLine();
         System.out.println("please input students surname");
@@ -202,9 +221,16 @@ public class LessonStudentTest implements LessonStudentCommandsAdmin, Commands {
         String email = scanner.nextLine();
         System.out.println("please input students phone");
         int phone = Integer.parseInt(scanner.nextLine());
-        System.out.println("please input dateOfBirth");
+        System.out.println("please input dateOfBirth [12/12/2021]");
         String dateOfBirth = scanner.nextLine();
-        Date date = DateUtil.stringToDate(dateOfBirth);
+        Date date = null;
+        try {
+            date = DateUtil.stringToDate(dateOfBirth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("Invalid date format,please respect format [12/12/2021]");
+            return;
+        }
         System.out.println("please input lessons name" + "\u001B[35m");
         String lessonName = scanner.nextLine();
         String[] lessonNames = lessonName.split(",");
