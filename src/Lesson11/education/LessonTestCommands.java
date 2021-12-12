@@ -14,7 +14,7 @@ interface LessonStudentCommands {
     String REGISTER = "2";
 
     static void printCommands() {
-        System.out.println("\u001B[34m" + "please input " + EXIT + " to EXIT");
+        System.out.println("\u001B[34m" + "please input " + EXIT + " for EXIT");
         System.out.println("please input " + LOGIN + " for login");
         System.out.println("please input " + REGISTER + " for register");
     }
