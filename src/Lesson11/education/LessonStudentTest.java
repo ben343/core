@@ -119,10 +119,13 @@ public class LessonStudentTest implements LessonStudentCommands {
     private static void register() {
         System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
-        User user = null;
+
         try {
-            user = userStorage.getByEmail(email);
-            System.out.println("please input  student's name");
+            userStorage.getByEmail(email);
+            System.out.println("Sorry: user already exist");
+
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
             String name = scanner.nextLine();
             System.out.println("please input student's surname");
             String surname = scanner.nextLine();
@@ -132,23 +135,20 @@ public class LessonStudentTest implements LessonStudentCommands {
             String type = scanner.nextLine();
             if (type.equalsIgnoreCase("admin")
                     || type.equalsIgnoreCase("user")) {
-                User user1 = new User();
+                User user = new User();
                 user.setEmail(email);
                 user.setName(name);
                 user.setSurname(surname);
                 user.setPassword(password);
                 user.setType(type.toUpperCase());
-                userStorage.add(user1);
+                userStorage.add(user);
                 System.out.println("User was registered!");
 
             } else {
                 System.out.println("Invalid type");
             }
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
 
+        }
 
     }
 
@@ -177,8 +177,6 @@ public class LessonStudentTest implements LessonStudentCommands {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-
-
     }
 
 

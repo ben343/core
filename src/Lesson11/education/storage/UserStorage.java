@@ -36,9 +36,9 @@ public class UserStorage {
             if (users[i].getEmail().equals(email)) {
                 return users[i];
             }
-
         }
-       throw new UserNotFoundException("User does not exists. email: " + email );
+        throw new UserNotFoundException("User does not exists. EMAIL: " + email );
+    }
     }
 
 
@@ -46,4 +46,3 @@ public class UserStorage {
 
 
 
-}
