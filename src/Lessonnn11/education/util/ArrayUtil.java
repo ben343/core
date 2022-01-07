@@ -1,4 +1,4 @@
-package Lesson11.education.util;
+package Lessonnn11.education.util;
 
 public class ArrayUtil {
    public static void deleteByIndex(Object[] array, int index, int size) {

@@ -1,15 +1,16 @@
-package Lesson11.education.model;
+package Lessonnn11.education.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
 private String name;
 private String surname;
 private String email;
 private String password;
-private String type;
+private UserType type;
 
-    public User(String name, String surname, String email, String password, String type) {
+    public User(String name, String surname, String email, String password, UserType type) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -52,11 +53,11 @@ private String type;
         this.password = password;
     }
 
-    public String getType() {
+    public UserType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(UserType type) {
         this.type = type;
     }
 

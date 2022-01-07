@@ -1,4 +1,4 @@
-package Lesson11.education.exception;
+package Lessonnn11.education.exception;
 
 public class UserNotFoundException extends Exception{
     public UserNotFoundException() {

@@ -1,7 +1,11 @@
-package Lesson11.education.model;
+package Lessonnn11.education.model;
 
 
-public class Lesson {
+import java.io.Serializable;
+import java.util.Objects;
+
+
+public class Lesson implements Serializable {
     private String name;
     private int duration;
     private String lecturerNa;
@@ -13,7 +17,6 @@ public class Lesson {
         this.lecturerNa = lecturerNa;
         this.prince = prince;
     }
-
     public Lesson() {
     }
 
@@ -57,5 +60,18 @@ public class Lesson {
                 ", lecturerNa='" + lecturerNa + '\'' +
                 ", prince=" + prince +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return duration == lesson.duration && prince == lesson.prince && Objects.equals(name, lesson.name) && Objects.equals(lecturerNa, lesson.lecturerNa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, duration, lecturerNa, prince);
     }
 }

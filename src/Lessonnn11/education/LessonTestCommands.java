@@ -1,4 +1,4 @@
-package Lesson11.education;
+package Lessonnn11.education;
 
 interface LessonStudentCommands {
     String EXIT = "0";
