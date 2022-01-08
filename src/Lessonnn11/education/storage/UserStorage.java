@@ -24,7 +24,6 @@ public class UserStorage {
             System.out.println(value);
         }
     }
-
     public User getByEmail(String email) {
      return userMap.get(email);
 

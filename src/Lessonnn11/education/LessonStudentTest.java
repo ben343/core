@@ -1,7 +1,6 @@
 package Lessonnn11.education;
 
 
-
 import Lessonnn11.education.model.Lesson;
 import Lessonnn11.education.model.Student;
 import Lessonnn11.education.model.UserType;
@@ -21,10 +20,8 @@ public class LessonStudentTest implements LessonStudentCommands {
     static UserStorage userStorage = new UserStorage();
 
 
-
-
     public static void main(String[] args) throws ParseException {
-initData();
+        initData();
 
         boolean isRun = true;
         while (isRun) {
@@ -131,57 +128,52 @@ initData();
         System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
 
-            userStorage.getByEmail(email);
+        userStorage.getByEmail(email);
 
 
+        System.out.println("Please input name ");
+        String name = scanner.nextLine();
+        System.out.println("please input student's surname");
+        String surname = scanner.nextLine();
+        System.out.println("please input student's password");
+        String password = scanner.nextLine();
+        System.out.println("please input student's type (ADMIN,USER)");
+        String type = scanner.nextLine();
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPassword(password);
+        user.setType(UserType.valueOf(type.toUpperCase()));
+        userStorage.add(user);
+        System.out.println("User was registered!");
 
-            System.out.println("Please input name ");
-            String name = scanner.nextLine();
-            System.out.println("please input student's surname");
-            String surname = scanner.nextLine();
-            System.out.println("please input student's password");
-            String password = scanner.nextLine();
-            System.out.println("please input student's type (ADMIN,USER)");
-            String type = scanner.nextLine();
-            User user = new User();
-            user.setEmail(email);
-            user.setName(name);
-            user.setSurname(surname);
-            user.setPassword(password);
-            user.setType(UserType.valueOf(type.toUpperCase()));
-            userStorage.add(user);
-            System.out.println("User was registered!");
-
-        }
-
-
+    }
 
 
     private static void login() {
-System.out.println("\u001B[35m" + "please input student's email");
+        System.out.println("\u001B[35m" + "please input student's email");
         String email = scanner.nextLine();
         User byEmail = null;
 
-            byEmail = userStorage.getByEmail(email);
-            System.out.println("please input student's password");
-            String password = scanner.nextLine();
+        byEmail = userStorage.getByEmail(email);
+        System.out.println("please input student's password");
+        String password = scanner.nextLine();
 
-            if (byEmail.getPassword().equals(password)) {
-                if (byEmail.getType() == UserType.ADMIN) {
-                    adminLogin();
-                } else if (byEmail.getType() == UserType.USER) {
-                    userLogin();
-                }
-
-            } else {
-                System.out.println("password is worng!");
-
+        if (byEmail.getPassword().equals(password)) {
+            if (byEmail.getType() == UserType.ADMIN) {
+                adminLogin();
+            } else if (byEmail.getType() == UserType.USER) {
+                userLogin();
             }
 
-
+        } else {
+            System.out.println("password is worng!");
 
         }
 
+
+    }
 
 
     private static void deleteStudentByEmail() {
@@ -246,22 +238,18 @@ System.out.println("\u001B[35m" + "please input student's email");
             return;
         }
         System.out.println("please input lessons name" + "\u001B[35m");
-        String lessonName = scanner.nextLine();
-        String[] lessonNames = lessonName.split(",");
+        String lessonNamee = scanner.nextLine();
+        String[] lessonNames = lessonNamee.split(",");
 
-        int size = 0;
-        for (int i = 0; i < lessonNames.length; i++) {
-            if (lessonStorage.getByName(lessonNames[i]) != null)
-                size++;
-        }
         List<Lesson> lessons = new LinkedList<>();
-        for (Lesson lesson : lessons) {
-            if (lessonStorage.getByName(lesson.getName()) != null) {
+        Lesson lesson;
+        for (String lessonName : lessonNames) {
+            if ((lesson = lessonStorage.getByName(lessonName)) != null) {
                 lessons.add(lesson);
+
+            }
         }
 
-
-        }
         Student student = new Student(name, surname, age, email, phone, date, lessons);
         studentStorage.add(student);
         System.out.println("Thank you, Student was added");

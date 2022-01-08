@@ -32,8 +32,7 @@ FileUtil.serializeLessons(lessons);
     public Lesson getByName(String name) {
         for (Lesson lesson : lessons) {
             if (lesson.getName().equals(name)) {
-                return lesson;
-            }
+                return lesson;}
 
 
         }

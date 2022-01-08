@@ -33,7 +33,7 @@ public class StudentStorage {
     }
         public void deleteStudentByEmail (String email){
             for (Student student : students) {
-                if (student.getEmail().equals(email)) ;
+                if (student.getEmail().equals(email))
                 students.remove(student);
                 FileUtil.serializeStudents(students);
             }
@@ -41,7 +41,7 @@ public class StudentStorage {
         }
         public void printStudentByLesson(String name) {
             for (Student student : students) {
-                if (student.getLessons().equals(student)) {
+                if (student.getLessons().contains(name)) {
                     System.out.println(student);
 
                 }
