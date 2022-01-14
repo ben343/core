@@ -38,12 +38,12 @@ class MultiThreadRead implements Runnable {
 
         List<String> string = Files.readAllLines(Paths.get(path));
         List<String> list1 = string.subList(0, 900000);
-        List<String> list2 = string.subList(900000, 1800000);
-        List<String> list3 = string.subList(1800000, 3448632);
+        List<String> list2 = string.subList(900001, 1800000);
+        List<String> list3 = string.subList(1800001, 3448632);
 
         long currentTime = System.currentTimeMillis();
         MultiThreadRead multiThreadRead = new MultiThreadRead(list1, ",");
-        MultiThreadRead multiThreadRead1 = new MultiThreadRead(list2, "");
+        MultiThreadRead multiThreadRead1 = new MultiThreadRead(list2, ",");
         MultiThreadRead multiThreadRead2 = new MultiThreadRead(list3, ",");
 
 
